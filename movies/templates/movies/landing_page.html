@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <form method="get" action="{% url 'landing_page' %}">
   <select
-    class="select bg-primary font-semibold"
+    class="select select-accent font-semibold"
     name="movie_category"
     onChange="this.form.submit()"
   >
@@ -13,5 +13,30 @@
   </select>
 </form>
 
-<div id="movie-container"></div>
+<div
+  id="movie-container"
+  class="movie-list mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+>
+  {% for movie in movies %}
+  <div class="card bg-base-100 max-w-72 shadow-sm">
+    <figure>
+      <img
+        src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
+        alt="Movie Poster"
+      />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Card Title</h2>
+      <p>
+        A card component has a figure, a body part, and inside body there are
+        title and actions parts
+      </p>
+      <div class="card-actions justify-end">
+        <button class="btn btn-primary">Buy Now</button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock %}
