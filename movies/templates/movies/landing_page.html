@@ -1,1 +1,17 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<form method="get" action="{% url 'landing_page' %}">
+  <select
+    class="select bg-primary font-semibold"
+    name="movie_category"
+    onChange="this.form.submit()"
+  >
+    <option value="" disabled selected>Pick a movie</option>
+    <option value="popular">Popular</option>
+    <option value="now_playing">Now Playing</option>
+    <option value="top_rated">Top Rated</option>
+    <option value="upcoming">Upcoming</option>
+  </select>
+</form>
+
+<div id="movie-container"></div>
+{% endblock %}
