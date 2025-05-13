@@ -5,8 +5,8 @@
   >
     <figure>
       <img
-        src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
-        alt="Movie Poster"
+        src="{% if movie.poster_path %} https://image.tmdb.org/t/p/original/{{movie.poster_path}} {% else %} https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg {% endif %}"
+        alt="{{movie.title}}"
       />
     </figure>
     <div class="card-body">
@@ -15,4 +15,12 @@
     </div>
   </div>
 </a>
-{% endfor %}
+{% endfor %} {% if has_next_page %}
+<div
+  id="scroll-trigger"
+  hx-get="{% url 'landing_page' %}?category={{ category }}&search={{ search }}&page={{ next_page }}"
+  hx-target="#movie-list-container"
+  hx-swap="beforeend"
+  hx-trigger="revealed"
+></div>
+{% endif %}

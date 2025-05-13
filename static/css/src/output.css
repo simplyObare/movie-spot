@@ -727,6 +727,11 @@
     color: var(--color-error-content);
     --alert-color: var(--color-error);
   }
+  .alert-info {
+    border-color: var(--color-info);
+    color: var(--color-info-content);
+    --alert-color: var(--color-info);
+  }
   .bg-accent {
     background-color: var(--color-accent);
   }
