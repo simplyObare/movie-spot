@@ -1,0 +1,18 @@
+{% for movie in movies %}
+<a href="#" class="cursor-pointer">
+  <div
+    class="card bg-info max-w-72 shadow-sm hover:bg-info-content transition duration-300 ease-in-out"
+  >
+    <figure>
+      <img
+        src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
+        alt="Movie Poster"
+      />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">{{movie.title}}</h2>
+      <p>{{movie.vote_average | floatformat:1}}/10</p>
+    </div>
+  </div>
+</a>
+{% endfor %}

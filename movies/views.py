@@ -24,6 +24,18 @@ def landing_page(request):
         data = []
         error_message = "Error fetching data from TMDB API. Please try again later."
 
+    if request.headers.get("HX-Request"):
+        return render(
+            request,
+            "movies/partials/movie_list.html",
+            {
+                "movies": data,
+                "category": category,
+                "search_query": search_query,
+                "error_message": error_message,
+            },
+        )
+
     return render(
         request,
         "movies/landing_page.html",

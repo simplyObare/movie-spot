@@ -1,9 +1,9 @@
 {% extends "base.html" %} {% block content %}
-<form method="get" action="{% url 'landing_page' %}">
+<form method="get">
   <select
     class="select select-accent bg-accent font-semibold"
     name="category"
-    onChange="this.form.submit()"
+    hx-get="{% url 'landing_page' %}" hx-target="#movie-list-container" hx-swap="innerHTML"
   >
     <option value="" disabled selected>Pick a movie</option>
     <option value="popular" {% if category == 'popular' %} selected {% endif %}>Popular</option>
@@ -14,7 +14,7 @@
 </form>
 
 <div class='flex justify-center mt-10'>
-  <form action="{% url 'landing_page' %}" method="get">
+  <form hx-get="{% url 'landing_page' %}" hx-target="#movie-list-container" hx-swap="innerHTML" method="get">
     <label class="input input-accent input-lg w-full lg:w-lg">
       <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
@@ -50,25 +50,8 @@
   </div>
   {% endif %}
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-    {% for movie in movies %}
-  <a href="#" class='cursor-pointer'>
-    <div class="card bg-info max-w-72 shadow-sm hover:bg-info-content transition duration-300 ease-in-out"> 
-      <figure>
-        <img
-          src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
-          alt="Movie Poster"
-        />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">{{movie.title}}</h2>
-        <p>
-          {{movie.vote_average | floatformat:1}}/10
-        </p>
-      </div>
-    </div>
-  </a>
-  {% endfor %}
+  <div id="movie-list-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+   {% include "movies/partials/movie_list.html" %}
   </div>
   
 </div>
