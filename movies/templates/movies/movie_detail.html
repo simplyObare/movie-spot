@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block content %}
+<div class="card lg:card-side bg-base-100 shadow-sm w-full lg:h-svh mx-auto">
+  <figure class="w-2/5">
+    <img
+      src="{% if movie_data.poster_path %} https://image.tmdb.org/t/p/original/{{movie_data.poster_path}} {% else %} https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg {% endif %}"
+      alt="{{movie.title}}"
+      class="w-full h-full object-cover"
+    />
+  </figure>
+  <div class="card-body w-3/5">
+    <h2 class="card-title">{{movie_data.title}}</h2>
+    <p>{{movie_data.overview}}</p>
+    <p class="text-sm">
+      <span class="font-semibold">Release Date: </span>
+      {{movie_data.release_date}}
+    </p>
+
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold mb-1">Genre:</h3>
+      <ul class="flex flex-wrap gap-2">
+        {% for genre in movie_data.genres %}
+        <li class="badge badge-accent">{{genre.name}}</li>
+        {%empty%}
+        <li class="badge badge-accent">No genre provided.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold mb-1">Directors:</h3>
+      <ul class="flex flex-wrap gap-2">
+        {% for member in movie_credits.crew %} {% if member.job == "Director" %}
+        <li class="badge badge-soft badge-info">{{member.name}}</li>
+        {% endif %} {%empty%}
+        <li class="badge badge-soft badge-info">No director info provided.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold mb-1">Cast:</h3>
+      <ul class="flex flex-wrap gap-2">
+        {% for member in movie_credits.cast|slice:":10" %}
+        <li class="badge badge-soft badge-secondary">{{member.name}}</li>
+        {%empty%}
+        <li class="badge badge-soft badge-secondary">No cast info provided.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <a href="{% url 'landing_page' %}" class="card-actions justify-end mt-3"
+      ><button class="btn btn-primary">Back to Movies</button></a
+    >
+  </div>
+</div>
+{% endblock %}
