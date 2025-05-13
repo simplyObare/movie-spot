@@ -2,14 +2,14 @@
 <form method="get" action="{% url 'landing_page' %}">
   <select
     class="select select-accent font-semibold"
-    name="movie_category"
+    name="category"
     onChange="this.form.submit()"
   >
     <option value="" disabled selected>Pick a movie</option>
-    <option value="popular">Popular</option>
-    <option value="now_playing">Now Playing</option>
-    <option value="top_rated">Top Rated</option>
-    <option value="upcoming">Upcoming</option>
+    <option value="popular" {% if category == 'popular' %} selected {% endif %}>Popular</option>
+    <option value="now_playing" {% if category == 'now_playing' %} selected {% endif %}>Now Playing</option>
+    <option value="top_rated" {% if category == 'top_rated' %} selected {% endif %}>Top Rated</option>
+    <option value="upcoming" {% if category == 'upcoming' %} selected {% endif %}>Upcoming</option>
   </select>
 </form>
 
@@ -18,24 +18,22 @@
   class="movie-list mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
 >
   {% for movie in movies %}
-  <div class="card bg-base-100 max-w-72 shadow-sm">
-    <figure>
-      <img
-        src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
-        alt="Movie Poster"
-      />
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Card Title</h2>
-      <p>
-        A card component has a figure, a body part, and inside body there are
-        title and actions parts
-      </p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+  <a href="#" class='cursor-pointer'>
+    <div class="card bg-info max-w-72 shadow-sm hover:bg-info-content transition duration-300 ease-in-out"> 
+      <figure>
+        <img
+          src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
+          alt="Movie Poster"
+        />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">{{movie.title}}</h2>
+        <p>
+          {{movie.vote_average | floatformat:1}}/10
+        </p>
       </div>
     </div>
-  </div>
+  </a>
   {% endfor %}
 </div>
 
